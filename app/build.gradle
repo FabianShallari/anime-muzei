@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+
+ext {
+  //app config
+  appId = 'codes.fabio.animemuzei'
+  minSdk = 16
+  compileSdk = 24
+  targetSdk = 24
+  buildTools = '24.0.3'
+  versionCode = 1
+  versionName = '1.0.0'
+
+  // libs config
+  supportLibs = '24.2.1'
+  jUnit = '4.12'
+  espressoCore = '2.2.2'
+  muzeiApi = '2.0'
+  retrofit2 = '2.1.0'
+  dagger2 = '2.7'
+  okHttp = '3.4.2'
+}
+
+android {
+  compileSdkVersion compileSdk
+  buildToolsVersion buildTools
+
+  defaultConfig {
+    applicationId appId
+    minSdkVersion minSdk
+    targetSdkVersion targetSdk
+    versionCode versionCode
+    versionName versionName
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+
+dependencies {
+  compile fileTree(include: ['*.jar'], dir: 'libs')
+  androidTestCompile("com.android.support.test.espresso:espresso-core:$espressoCore", {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
+  compile "com.google.android.apps.muzei:muzei-api:$muzeiApi"
+  //noinspection GradleDependency
+  compile "com.android.support:appcompat-v7:$supportLibs"
+  testCompile "junit:junit:$jUnit"
+  compile "com.squareup.retrofit2:retrofit:$retrofit2"
+  compile "com.squareup.retrofit2:retrofit-converters:$retrofit2"
+  compile "com.squareup.retrofit2:converter-gson:$retrofit2"
+  compile "com.google.dagger:dagger:$dagger2"
+  compile "com.google.dagger:dagger-compiler:$dagger2"
+  compile "com.squareup.okhttp3:okhttp:$okHttp"
+}
