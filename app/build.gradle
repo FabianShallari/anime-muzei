@@ -18,6 +18,10 @@ ext {
   retrofit2 = '2.1.0'
   dagger2 = '2.7'
   okHttp = '3.4.2'
+  autoValue = '1.2'
+  autoValueGson = '0.4.4'
+  gson = '2.8.0'
+  rxJava = '1.2.2'
 }
 
 android {
@@ -31,6 +35,8 @@ android {
     versionCode versionCode
     versionName versionName
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    buildConfigField "String", "IMGUR_KEY", "\"$imgurPublicKey\""
   }
 
   buildTypes {
@@ -44,17 +50,37 @@ android {
 
 dependencies {
   compile fileTree(include: ['*.jar'], dir: 'libs')
+
+  // Testing
   androidTestCompile("com.android.support.test.espresso:espresso-core:$espressoCore", {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
-  compile "com.google.android.apps.muzei:muzei-api:$muzeiApi"
+  testCompile "junit:junit:$jUnit"
+
+  // Google
   //noinspection GradleDependency
   compile "com.android.support:appcompat-v7:$supportLibs"
-  testCompile "junit:junit:$jUnit"
+  compile "com.google.android.apps.muzei:muzei-api:$muzeiApi"
+
+  // Auto
+  compile "com.google.auto.value:auto-value:$autoValue"
+  annotationProcessor "com.google.auto.value:auto-value:$autoValue"
+  annotationProcessor "com.ryanharter.auto.value:auto-value-gson:$autoValueGson"
+  provided "com.ryanharter.auto.value:auto-value-gson:$autoValueGson"
+
+  // Rx
+  compile "io.reactivex:rxjava:$rxJava"
+
+
+  // Network
   compile "com.squareup.retrofit2:retrofit:$retrofit2"
   compile "com.squareup.retrofit2:retrofit-converters:$retrofit2"
   compile "com.squareup.retrofit2:converter-gson:$retrofit2"
-  compile "com.google.dagger:dagger:$dagger2"
-  compile "com.google.dagger:dagger-compiler:$dagger2"
+  compile "com.squareup.retrofit2:adapter-rxjava:$retrofit2"
   compile "com.squareup.okhttp3:okhttp:$okHttp"
+  compile "com.google.code.gson:gson:$gson"
+
+  // Dagger
+  compile "com.google.dagger:dagger:$dagger2"
+  annotationProcessor "com.google.dagger:dagger-compiler:$dagger2"
 }
