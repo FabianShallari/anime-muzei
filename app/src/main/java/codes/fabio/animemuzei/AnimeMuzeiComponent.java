@@ -6,7 +6,6 @@ import javax.inject.Singleton;
 /**
  * Created by fabian on 11/4/16.
  */
-
-@Singleton @Component(modules = NetworkModule.class) public interface AnimeMuzeiComponent {
+@Singleton @Component(modules = NetworkModule.class) interface AnimeMuzeiComponent {
   void inject(AnimeMuzeiRemoteSource animeMuzeiRemoteSource);
 }

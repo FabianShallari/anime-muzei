@@ -1,8 +1,5 @@
 package codes.fabio.animemuzei;
 
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
 import com.google.android.apps.muzei.api.RemoteMuzeiArtSource;
 
 public class AnimeMuzeiRemoteSource extends RemoteMuzeiArtSource {

@@ -8,7 +8,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module class NetworkModule {
-
+  
   @Provides Retrofit provideRetrofit(OkHttpClient okHttpClient, Gson gson) {
     return new Retrofit.Builder().baseUrl("https://api.imgur.com/3/")
         .client(okHttpClient)
