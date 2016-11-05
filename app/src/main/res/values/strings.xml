@@ -1,3 +1,5 @@
 <resources>
   <string name="app_name">Anime Muzei</string>
+  <string name="share_artwork_command">Share Artwork</string>
+  <string name="share_artwork_message">Check out this wallpaper I have via Anime Muzei: %1$s</string>
 </resources>
