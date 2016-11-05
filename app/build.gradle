@@ -18,10 +18,11 @@ ext {
   retrofit2 = '2.1.0'
   dagger2 = '2.7'
   okHttp = '3.4.2'
-  autoValue = '1.2'
+  autoValue = '1.3'
   autoValueGson = '0.4.4'
   gson = '2.8.0'
   rxJava = '1.2.2'
+  timber = '4.3.1'
 }
 
 android {
@@ -57,10 +58,11 @@ dependencies {
   })
   testCompile "junit:junit:$jUnit"
 
-  // Google
+  // Utils
   //noinspection GradleDependency
   compile "com.android.support:appcompat-v7:$supportLibs"
   compile "com.google.android.apps.muzei:muzei-api:$muzeiApi"
+  compile "com.jakewharton.timber:timber:$timber"
 
   // Auto
   compile "com.google.auto.value:auto-value:$autoValue"
@@ -70,7 +72,6 @@ dependencies {
 
   // Rx
   compile "io.reactivex:rxjava:$rxJava"
-
 
   // Network
   compile "com.squareup.retrofit2:retrofit:$retrofit2"
