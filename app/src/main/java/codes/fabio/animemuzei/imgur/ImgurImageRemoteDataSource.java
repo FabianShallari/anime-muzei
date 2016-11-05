@@ -9,6 +9,7 @@ import rx.Observable;
 import rx.functions.Func1;
 
 import static codes.fabio.animemuzei.imgur.Util.randomFromList;
+import static codes.fabio.animemuzei.imgur.Util.viewIntent;
 
 @Singleton public class ImgurImageRemoteDataSource {
 
@@ -31,7 +32,17 @@ import static codes.fabio.animemuzei.imgur.Util.randomFromList;
       }
     }).map(new Func1<Image, Artwork>() {
       @Override public Artwork call(Image image) {
-        return new Artwork.Builder().imageUri(Uri.parse(image.link())).build();
+        Artwork.Builder artworkBuilder = new Artwork.Builder();
+        artworkBuilder.imageUri(Uri.parse(image.link()));
+        artworkBuilder.token(image.id());
+        artworkBuilder.viewIntent(viewIntent(image.link()));
+        if (image.title() != null) {
+          artworkBuilder.title(image.title());
+        }
+        if (image.description() != null) {
+          artworkBuilder.byline(image.description());
+        }
+        return artworkBuilder.build();
       }
     });
   }
