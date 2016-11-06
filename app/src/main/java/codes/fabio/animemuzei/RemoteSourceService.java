@@ -9,9 +9,10 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import timber.log.Timber;
 
+import static codes.fabio.animemuzei.AnimeMuzeiApplication.getApplicationComponent;
 import static codes.fabio.animemuzei.Util.shareImageIntent;
 
-public class AnimeMuzeiRemoteSource extends RemoteMuzeiArtSource {
+public class RemoteSourceService extends RemoteMuzeiArtSource {
 
   private static final String SOURCE_NAME = "AnimeMuzeiArtSource";
   static final int CUSTOM_COMMAND_ID_SHARE_ARTWORK = MAX_CUSTOM_COMMAND_ID - 1;
@@ -19,7 +20,7 @@ public class AnimeMuzeiRemoteSource extends RemoteMuzeiArtSource {
   @Inject ImgurImageRemoteDataSource imgurImageRemoteDataSource;
   @Inject List<UserCommand> userCommands;
 
-  public AnimeMuzeiRemoteSource() {
+  public RemoteSourceService() {
     super(SOURCE_NAME);
   }
 
@@ -30,10 +31,7 @@ public class AnimeMuzeiRemoteSource extends RemoteMuzeiArtSource {
   }
 
   private void injectDependencies() {
-    DaggerAnimeMuzeiComponent.builder()
-        .animeMuzeiModule(new AnimeMuzeiModule(getResources()))
-        .build()
-        .inject(this);
+    getApplicationComponent(this).inject(this);
   }
 
   @Override protected void onTryUpdate(int reason) throws RetryException {

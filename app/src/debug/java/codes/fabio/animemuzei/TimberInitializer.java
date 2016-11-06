@@ -1,28 +1,20 @@
 package codes.fabio.animemuzei;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import timber.log.Timber;
 
-class TimberInitializer {
+@Singleton class TimberInitializer {
 
-  static void init() {
-    if (BuildConfig.DEBUG) {
-      initDebug();
-    } else {
-      initRelease();
-    }
+  @Inject TimberInitializer() {
+
   }
 
-  private static void initDebug() {
+  void init() {
     Timber.plant(new Timber.DebugTree() {
       @Override protected String createStackElementTag(StackTraceElement element) {
         return super.createStackElementTag(element) + ":" + element.getLineNumber();
       }
     });
   }
-
-  private static void initRelease() {
-    // Todo: plant Crashlytics Tree
-  }
-
-
 }
