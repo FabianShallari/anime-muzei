@@ -29,13 +29,14 @@
       </intent-filter>
       <meta-data
           android:name="color"
-          android:value="#fa0"/>
+          android:value="#00796B"/>
       <meta-data
           android:name="settingsActivity"
-          android:value=".AnimeMuzeiSettingsActivity" />
+          android:value=".settings.SettingsActivity" />
     </service>
 
-    <activity android:name=".AnimeMuzeiSettingsActivity"
+    <activity android:name=".settings.SettingsActivity"
+        android:launchMode="singleTop"
         android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
