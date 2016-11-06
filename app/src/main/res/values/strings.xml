@@ -1,5 +1,7 @@
 <resources>
   <string name="app_name">Anime Muzei</string>
   <string name="share_artwork_command">Share Artwork</string>
-  <string name="share_artwork_message">Check out this wallpaper I have via Anime Muzei: %1$s</string>
+  <string name="share_artwork_message">My Android wallpaper today\n%1$s\n\nVia #AnimeMuzei
+    (https://play.google.com/store/apps/details?id=codes.fabio.animemuzei)
+  </string>
 </resources>
