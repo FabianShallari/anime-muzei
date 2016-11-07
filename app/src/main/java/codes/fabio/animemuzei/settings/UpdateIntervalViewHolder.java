@@ -16,6 +16,6 @@ class UpdateIntervalViewHolder {
   void bind(UpdateInterval updateInterval) {
     Context context = updateIntervalText.getContext();
     updateIntervalText.setText(context.getString(R.string.update_interval, updateInterval.amount(),
-        updateInterval.timeUnit()));
+        updateInterval.timeUnit().toString().toLowerCase()));
   }
 }
