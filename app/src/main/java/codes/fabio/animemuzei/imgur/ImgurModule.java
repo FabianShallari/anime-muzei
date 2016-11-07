@@ -26,8 +26,12 @@ import static java.util.Collections.unmodifiableList;
     return new GsonBuilder().registerTypeAdapterFactory(ModelsTypeAdapterFactory.create()).create();
   }
 
-  @Provides @Singleton List<String> provideAlbumIdsList() {
-    return unmodifiableList(asList("veQcQ", "SBhEW"));
+  @Provides @Singleton @Sfw List<String> provideAlbumIdsList() {
+    return unmodifiableList(asList("veQcQ", "SBhEW", "8QKvH", "5cbaf", "9v8Bs", "bbshg"));
+  }
+
+  @Provides @Singleton @Nsfw List<String> provideNsfwAlbumsIdsList() {
+    return unmodifiableList(asList("TwZL7", "YOL7i", "Lkdd2"));
   }
 
   @Provides @Singleton Interceptor provideInterceptor() {
