@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 ext {
   //app config
   appId = 'codes.fabio.animemuzei'
-  minSdk = 16
+  minSdk = 19
   compileSdk = 24
   targetSdk = 24
   buildTools = '24.0.3'
