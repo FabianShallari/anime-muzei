@@ -45,10 +45,20 @@ android {
     buildConfigField "String", "IMGUR_KEY", "\"$imgurPublicKey\""
   }
 
+  signingConfigs {
+    signing {
+      keyAlias "$signingKeyAlias"
+      keyPassword "$signingKeyPassword"
+      storeFile file("$signingKeyStorePath")
+      storePassword "$signingStorePassword"
+    }
+  }
+
   buildTypes {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      signingConfig signingConfigs.signing
     }
   }
 }

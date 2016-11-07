@@ -8,3 +8,5 @@
 .externalNativeBuild
 *.properties
 /app/src/main/assets/
+*.jks
+/app/app-release.apk
