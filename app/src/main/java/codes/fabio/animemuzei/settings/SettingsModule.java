@@ -10,7 +10,7 @@ import static java.util.concurrent.TimeUnit.DAYS;
 import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.MINUTES;
 
-@Module class SettingsModule {
+@Module public class SettingsModule {
 
   @Provides @Singleton List<UpdateInterval> provideUpdateIntervalOptions() {
     return asList(UpdateInterval.create(5, MINUTES), UpdateInterval.create(10, MINUTES),

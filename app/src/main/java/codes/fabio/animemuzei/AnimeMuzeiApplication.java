@@ -24,7 +24,7 @@ public class AnimeMuzeiApplication extends Application {
     appComponent.inject(this);
   }
 
-  static AppComponent getApplicationComponent(Context context) {
+  public static AppComponent getApplicationComponent(Context context) {
     return ((AnimeMuzeiApplication) context.getApplicationContext()).appComponent;
   }
 }

@@ -15,6 +15,7 @@ import codes.fabio.animemuzei.R;
 import javax.inject.Inject;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_EXCLUSIVE;
+import static codes.fabio.animemuzei.AnimeMuzeiApplication.getApplicationComponent;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -36,7 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
   }
 
   private void injectDependencies() {
-    DaggerSettingsComponent.builder().build().inject(this);
+    getApplicationComponent(this).inject(this);
   }
 
   private void findViews() {

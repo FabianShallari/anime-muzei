@@ -1,16 +1,18 @@
 package codes.fabio.animemuzei;
 
 import codes.fabio.animemuzei.imgur.ImgurModule;
+import codes.fabio.animemuzei.settings.SettingsActivity;
+import codes.fabio.animemuzei.settings.SettingsModule;
 import dagger.Component;
 import javax.inject.Singleton;
 
-@Singleton @Component(modules = {
-    ImgurModule.class, AppModule.class, RemoteServiceModule.class
-})
-interface AppComponent {
+@SuppressWarnings("WeakerAccess") @Singleton @Component(modules = {
+    ImgurModule.class, AppModule.class, RemoteServiceModule.class, SettingsModule.class
+}) public interface AppComponent {
 
   void inject(AnimeMuzeiApplication animeMuzeiApplication);
 
   void inject(RemoteSourceService remoteSourceService);
 
+  void inject(SettingsActivity settingsActivity);
 }
