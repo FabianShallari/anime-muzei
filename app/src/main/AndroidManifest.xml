@@ -18,8 +18,8 @@
     <service
         android:name=".RemoteSourceService"
         android:label="@string/app_name"
-        android:description="@string/app_name"
-        android:icon="@mipmap/ic_launcher"
+        android:description="@string/anime_wallpapers"
+        android:icon="@drawable/ic_muzei_addon"
         android:enabled="true"
         android:exported="true"
         tools:ignore="ExportedService">
@@ -29,7 +29,7 @@
       </intent-filter>
       <meta-data
           android:name="color"
-          android:value="#00796B"/>
+          android:value="#673ab7"/>
       <meta-data
           android:name="settingsActivity"
           android:value=".settings.SettingsActivity" />
