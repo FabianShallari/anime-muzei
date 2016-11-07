@@ -19,6 +19,7 @@ public class RemoteSourceService extends RemoteMuzeiArtSource {
 
   @Inject ImgurImageRemoteDataSource imgurImageRemoteDataSource;
   @Inject List<UserCommand> userCommands;
+  @Inject SharedPrefsHelper sharedPrefsHelper;
 
   public RemoteSourceService() {
     super(SOURCE_NAME);
@@ -44,7 +45,10 @@ public class RemoteSourceService extends RemoteMuzeiArtSource {
       throw new RetryException();
     }
 
-    scheduleUpdate(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(10));
+    Timber.d("onTryUpdate: nsfw: %s", sharedPrefsHelper.isNsfwEnabled());
+    Timber.d("onTryUpdate: updateTimeInMinutes: %s", String.valueOf(
+        TimeUnit.MILLISECONDS.toMinutes(sharedPrefsHelper.getUpdateIntervalMillis())));
+    scheduleUpdate(System.currentTimeMillis() + sharedPrefsHelper.getUpdateIntervalMillis());
   }
 
   @Override protected void onCustomCommand(int id) {

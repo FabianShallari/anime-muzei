@@ -10,8 +10,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import codes.fabio.animemuzei.R;
+import codes.fabio.animemuzei.SharedPrefsHelper;
 import javax.inject.Inject;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_EXCLUSIVE;
@@ -20,6 +20,7 @@ import static codes.fabio.animemuzei.AnimeMuzeiApplication.getApplicationCompone
 public class SettingsActivity extends AppCompatActivity {
 
   @Inject UpdateIntervalSpinnerAdapter updateIntervalSpinnerAdapter;
+  @Inject SharedPrefsHelper sharedPrefsHelper;
 
   TextView madeWithLoveTextView;
   CheckBox nsfwCheckBox;
@@ -29,8 +30,8 @@ public class SettingsActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_anime_muzei_settings);
 
-    findViews();
     injectDependencies();
+    findViews();
     setMadeWithLoveText();
     setUpNsfwCheckBox();
     setUpSpinner();
@@ -47,9 +48,11 @@ public class SettingsActivity extends AppCompatActivity {
   }
 
   private void setUpNsfwCheckBox() {
+
+    nsfwCheckBox.setChecked(sharedPrefsHelper.isNsfwEnabled());
     nsfwCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        Toast.makeText(SettingsActivity.this, "isChecked " + isChecked, Toast.LENGTH_SHORT).show();
+        sharedPrefsHelper.setNsfwEnabled(isChecked);
       }
     });
   }
@@ -69,12 +72,22 @@ public class SettingsActivity extends AppCompatActivity {
 
   private void setUpSpinner() {
     updateIntervalSpinner.setAdapter(updateIntervalSpinnerAdapter);
+
+    long updateIntervalMillis = sharedPrefsHelper.getUpdateIntervalMillis();
+
+    for (int position = 0; position < updateIntervalSpinner.getAdapter().getCount(); position++) {
+      UpdateInterval updateInterval =
+          ((UpdateInterval) updateIntervalSpinner.getAdapter().getItem(position));
+      if (updateInterval.toMillis() == updateIntervalMillis) {
+        updateIntervalSpinner.setSelection(position);
+      }
+    }
+
     updateIntervalSpinner.setOnItemSelectedListener(new OnItemSelectedAdapter() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(SettingsActivity.this,
-            "Selected: " + updateIntervalSpinner.getAdapter().getItem(position), Toast.LENGTH_SHORT)
-            .show();
+        UpdateInterval updateInterval = ((UpdateInterval) parent.getAdapter().getItem(position));
+        sharedPrefsHelper.setUpdateIntervalMillis(updateInterval.toMillis());
       }
     });
   }
