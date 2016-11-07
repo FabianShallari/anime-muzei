@@ -32,31 +32,18 @@ public class SettingsActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_anime_muzei_settings);
 
-    injectDependencies();
-    findViews();
-    setAnimeMuzeiText();
-    setMadeWithLoveText();
-    setUpNsfwCheckBox();
-    setUpSpinner();
-  }
-
-  private void setAnimeMuzeiText() {
-    animeMuzeiTextView.setTypeface(getTypeFace(this, "Alegreya-BlackItalic.ttf"));
-    animeMuzeiTextView.setText(getString(R.string.app_name).toLowerCase());
-  }
-
-  private void injectDependencies() {
+    // inject dependencies
     getApplicationComponent(this).inject(this);
-  }
 
-  private void findViews() {
-    animeMuzeiTextView = ((TextView) findViewById(R.id.appName));
-    madeWithLoveTextView = ((TextView) findViewById(R.id.madeWithLove));
-    nsfwCheckBox = ((CheckBox) findViewById(R.id.nsfw));
-    updateIntervalSpinner = ((Spinner) findViewById(R.id.updateInterval));
-  }
+    // get views
+    findViews();
 
-  private void setUpNsfwCheckBox() {
+    // set anime muzei typeface and text
+    animeMuzeiTextView.setText(getString(R.string.app_name).toLowerCase());
+    animeMuzeiTextView.setTypeface(getTypeFace(this, "Alegreya-BlackItalic.ttf"));
+
+    // set Made with love text with ImageSpan
+    setMadeWithLoveText();
 
     nsfwCheckBox.setChecked(sharedPrefsHelper.isNsfwEnabled());
     nsfwCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -64,6 +51,29 @@ public class SettingsActivity extends AppCompatActivity {
         sharedPrefsHelper.setNsfwEnabled(isChecked);
       }
     });
+
+    // set adapter on update interval spinner
+    updateIntervalSpinner.setAdapter(updateIntervalSpinnerAdapter);
+
+    // set default selection on spinner's adapter based on shared preferences
+    setUpdateIntervalSelection(sharedPrefsHelper.getUpdateIntervalMillis());
+
+    // set spinner's listener to update shared preferences
+    updateIntervalSpinner.setOnItemSelectedListener(new OnItemSelectedAdapter() {
+      @Override
+      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        UpdateInterval updateInterval = ((UpdateInterval) parent.getAdapter().getItem(position));
+        sharedPrefsHelper.setUpdateIntervalMillis(updateInterval.toMillis());
+      }
+    });
+
+  }
+
+  private void findViews() {
+    animeMuzeiTextView = ((TextView) findViewById(R.id.appName));
+    madeWithLoveTextView = ((TextView) findViewById(R.id.madeWithLove));
+    nsfwCheckBox = ((CheckBox) findViewById(R.id.nsfw));
+    updateIntervalSpinner = ((Spinner) findViewById(R.id.updateInterval));
   }
 
   private void setMadeWithLoveText() {
@@ -79,26 +89,14 @@ public class SettingsActivity extends AppCompatActivity {
     madeWithLoveTextView.setText(spannableString);
   }
 
-  private void setUpSpinner() {
-    updateIntervalSpinner.setAdapter(updateIntervalSpinnerAdapter);
-
-    long updateIntervalMillis = sharedPrefsHelper.getUpdateIntervalMillis();
-
+  private void setUpdateIntervalSelection(long updateIntervalMillis) {
     for (int position = 0; position < updateIntervalSpinner.getAdapter().getCount(); position++) {
       UpdateInterval updateInterval =
           ((UpdateInterval) updateIntervalSpinner.getAdapter().getItem(position));
-      if (updateInterval.toMillis() == updateIntervalMillis) {
+      if (updateInterval.equalsMillis(updateIntervalMillis)) {
         updateIntervalSpinner.setSelection(position);
       }
     }
-
-    updateIntervalSpinner.setOnItemSelectedListener(new OnItemSelectedAdapter() {
-      @Override
-      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        UpdateInterval updateInterval = ((UpdateInterval) parent.getAdapter().getItem(position));
-        sharedPrefsHelper.setUpdateIntervalMillis(updateInterval.toMillis());
-      }
-    });
   }
 
   @Override protected void onDestroy() {
