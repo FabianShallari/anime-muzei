@@ -12,8 +12,8 @@ import rx.functions.Func1;
 import rx.functions.Func2;
 import timber.log.Timber;
 
-import static codes.fabio.animemuzei.imgur.Util.randomFromList;
-import static codes.fabio.animemuzei.imgur.Util.viewIntent;
+import static codes.fabio.animemuzei.Util.randomFromList;
+import static codes.fabio.animemuzei.Util.viewIntent;
 import static java.util.Collections.unmodifiableList;
 import static rx.Observable.just;
 

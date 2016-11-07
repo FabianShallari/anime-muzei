@@ -16,12 +16,14 @@ import javax.inject.Inject;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_EXCLUSIVE;
 import static codes.fabio.animemuzei.AnimeMuzeiApplication.getApplicationComponent;
+import static codes.fabio.animemuzei.Util.getTypeFace;
 
 public class SettingsActivity extends AppCompatActivity {
 
   @Inject UpdateIntervalSpinnerAdapter updateIntervalSpinnerAdapter;
   @Inject SharedPrefsHelper sharedPrefsHelper;
 
+  TextView animeMuzeiTextView;
   TextView madeWithLoveTextView;
   CheckBox nsfwCheckBox;
   Spinner updateIntervalSpinner;
@@ -32,9 +34,15 @@ public class SettingsActivity extends AppCompatActivity {
 
     injectDependencies();
     findViews();
+    setAnimeMuzeiText();
     setMadeWithLoveText();
     setUpNsfwCheckBox();
     setUpSpinner();
+  }
+
+  private void setAnimeMuzeiText() {
+    animeMuzeiTextView.setTypeface(getTypeFace(this, "Alegreya-BlackItalic.ttf"));
+    animeMuzeiTextView.setText(getString(R.string.app_name).toLowerCase());
   }
 
   private void injectDependencies() {
@@ -42,6 +50,7 @@ public class SettingsActivity extends AppCompatActivity {
   }
 
   private void findViews() {
+    animeMuzeiTextView = ((TextView) findViewById(R.id.appName));
     madeWithLoveTextView = ((TextView) findViewById(R.id.madeWithLove));
     nsfwCheckBox = ((CheckBox) findViewById(R.id.nsfw));
     updateIntervalSpinner = ((Spinner) findViewById(R.id.updateInterval));
