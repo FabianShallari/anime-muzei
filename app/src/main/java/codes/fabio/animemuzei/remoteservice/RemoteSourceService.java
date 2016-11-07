@@ -1,5 +1,7 @@
-package codes.fabio.animemuzei;
+package codes.fabio.animemuzei.remoteservice;
 
+import codes.fabio.animemuzei.R;
+import codes.fabio.animemuzei.SharedPrefsHelper;
 import codes.fabio.animemuzei.imgur.ImgurImageRemoteDataSource;
 import com.google.android.apps.muzei.api.Artwork;
 import com.google.android.apps.muzei.api.RemoteMuzeiArtSource;

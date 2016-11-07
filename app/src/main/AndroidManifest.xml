@@ -16,7 +16,7 @@
       android:theme="@style/AppTheme"
       tools:ignore="AllowBackup,GoogleAppIndexingWarning">
     <service
-        android:name=".RemoteSourceService"
+        android:name=".remoteservice.RemoteSourceService"
         android:label="@string/app_name"
         android:description="@string/anime_wallpapers"
         android:icon="@drawable/ic_muzei_addon"

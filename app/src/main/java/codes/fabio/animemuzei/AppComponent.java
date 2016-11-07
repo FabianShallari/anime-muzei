@@ -1,6 +1,8 @@
 package codes.fabio.animemuzei;
 
 import codes.fabio.animemuzei.imgur.ImgurModule;
+import codes.fabio.animemuzei.remoteservice.RemoteServiceModule;
+import codes.fabio.animemuzei.remoteservice.RemoteSourceService;
 import codes.fabio.animemuzei.settings.SettingsActivity;
 import codes.fabio.animemuzei.settings.SettingsModule;
 import dagger.Component;
