@@ -13,10 +13,12 @@ import android.widget.TextView;
 import codes.fabio.animemuzei.R;
 import codes.fabio.animemuzei.SharedPrefsHelper;
 import javax.inject.Inject;
+import timber.log.Timber;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_EXCLUSIVE;
 import static codes.fabio.animemuzei.AnimeMuzeiApplication.getApplicationComponent;
 import static codes.fabio.animemuzei.Util.getTypeFace;
+import static codes.fabio.animemuzei.remoteservice.RemoteSourceService.startActionRescheduleOnly;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -48,6 +50,7 @@ public class SettingsActivity extends AppCompatActivity {
     nsfwCheckBox.setChecked(sharedPrefsHelper.isNsfwEnabled());
     nsfwCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        Timber.d("onCheckedChanged: %s", isChecked);
         sharedPrefsHelper.setNsfwEnabled(isChecked);
       }
     });
@@ -63,7 +66,11 @@ public class SettingsActivity extends AppCompatActivity {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         UpdateInterval updateInterval = ((UpdateInterval) parent.getAdapter().getItem(position));
-        sharedPrefsHelper.setUpdateIntervalMillis(updateInterval.toMillis());
+        if (!updateInterval.equalsMillis(sharedPrefsHelper.getUpdateIntervalMillis())) {
+          // If update interval has changed, reschedule
+          sharedPrefsHelper.setUpdateIntervalMillis(updateInterval.toMillis());
+          startActionRescheduleOnly(SettingsActivity.this);
+        }
       }
     });
 
@@ -93,8 +100,10 @@ public class SettingsActivity extends AppCompatActivity {
     for (int position = 0; position < updateIntervalSpinner.getAdapter().getCount(); position++) {
       UpdateInterval updateInterval =
           ((UpdateInterval) updateIntervalSpinner.getAdapter().getItem(position));
+
       if (updateInterval.equalsMillis(updateIntervalMillis)) {
         updateIntervalSpinner.setSelection(position);
+        break;
       }
     }
   }
