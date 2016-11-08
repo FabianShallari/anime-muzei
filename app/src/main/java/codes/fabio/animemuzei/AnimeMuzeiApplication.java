@@ -2,9 +2,6 @@ package codes.fabio.animemuzei;
 
 import android.app.Application;
 import android.content.Context;
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.answers.Answers;
-import io.fabric.sdk.android.Fabric;
 import javax.inject.Inject;
 
 public class AnimeMuzeiApplication extends Application {
@@ -12,13 +9,14 @@ public class AnimeMuzeiApplication extends Application {
   private AppComponent appComponent;
 
   @Inject TimberInitializer timberInitializer;
+  @Inject FabricInitializer fabricInitializer;
 
   @Override public void onCreate() {
     super.onCreate();
 
     injectDependencies();
 
-    Fabric.with(this, new Crashlytics(), new Answers());
+    fabricInitializer.init();
     timberInitializer.init();
   }
 

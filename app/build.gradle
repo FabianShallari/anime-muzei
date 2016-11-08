@@ -41,7 +41,6 @@ android {
     versionCode versionCode
     versionName versionName
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    manifestPlaceholders = [fabricApiKey: "$fabricApiKey"]
     buildConfigField "String", "IMGUR_KEY", "\"$imgurPublicKey\""
   }
 
@@ -78,6 +77,9 @@ dependencies {
   compile "com.android.support:appcompat-v7:$supportLibs"
   compile "com.google.android.apps.muzei:muzei-api:$muzeiApi"
   compile "com.jakewharton.timber:timber:$timber"
+  releaseCompile("com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion") {
+    transitive = true;
+  }
 
   // Auto
   compile "com.google.auto.value:auto-value:$autoValue"
@@ -99,8 +101,4 @@ dependencies {
   // Dagger
   compile "com.google.dagger:dagger:$dagger2"
   annotationProcessor "com.google.dagger:dagger-compiler:$dagger2"
-
-  compile("com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion") {
-    transitive = true;
-  }
 }
