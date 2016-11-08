@@ -15,8 +15,10 @@ public class AnimeMuzeiApplication extends Application {
 
   @Override public void onCreate() {
     super.onCreate();
-    Fabric.with(this, new Crashlytics(), new Answers());
+
     injectDependencies();
+
+    Fabric.with(this, new Crashlytics(), new Answers());
     timberInitializer.init();
   }
 

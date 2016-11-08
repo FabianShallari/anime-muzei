@@ -14,7 +14,7 @@ import com.google.gson.TypeAdapter;
 
   abstract String link();
 
-  public static TypeAdapter<Image> typeAdapter(Gson gson) {
+  @SuppressWarnings("WeakerAccess") public static TypeAdapter<Image> typeAdapter(Gson gson) {
     return new AutoValue_Image.GsonTypeAdapter(gson);
   }
 }

@@ -19,19 +19,22 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 public class RemoteSourceService extends RemoteMuzeiArtSource {
 
+  static final int CUSTOM_COMMAND_ID_SHARE_ARTWORK = MAX_CUSTOM_COMMAND_ID - 1;
   private static final String ACTION_RESCHEDULE_ONLY =
       "codes.fabio.animemuzei.remoteservice.RemoteSourceService.ACTION_RESCHEDULE_ONLY";
-
   private static final String SOURCE_NAME = "AnimeMuzeiArtSource";
-
-  static final int CUSTOM_COMMAND_ID_SHARE_ARTWORK = MAX_CUSTOM_COMMAND_ID - 1;
-
   @Inject ImgurImageRemoteDataSource imgurImageRemoteDataSource;
   @Inject List<UserCommand> userCommands;
   @Inject SharedPrefsHelper sharedPrefsHelper;
 
   public RemoteSourceService() {
     super(SOURCE_NAME);
+  }
+
+  public static void startActionRescheduleOnly(Context context) {
+    Intent intent = new Intent(context, RemoteSourceService.class);
+    intent.setAction(ACTION_RESCHEDULE_ONLY);
+    context.startService(intent);
   }
 
   @Override public void onCreate() {
@@ -71,8 +74,8 @@ public class RemoteSourceService extends RemoteMuzeiArtSource {
     }
 
     Timber.d("onTryUpdate: nsfw: %s", sharedPrefsHelper.isNsfwEnabled());
-    Timber.d("onTryUpdate: updateTimeInMinutes: %s", String.valueOf(
-        MILLISECONDS.toMinutes(sharedPrefsHelper.getUpdateIntervalMillis())));
+    Timber.d("onTryUpdate: updateTimeInMinutes: %s",
+        String.valueOf(MILLISECONDS.toMinutes(sharedPrefsHelper.getUpdateIntervalMillis())));
 
     scheduleUpdate(currentTimeMillis() + sharedPrefsHelper.getUpdateIntervalMillis());
   }
@@ -86,11 +89,5 @@ public class RemoteSourceService extends RemoteMuzeiArtSource {
       default:
         super.onCustomCommand(id);
     }
-  }
-
-  public static void startActionRescheduleOnly(Context context) {
-    Intent intent = new Intent(context, RemoteSourceService.class);
-    intent.setAction(ACTION_RESCHEDULE_ONLY);
-    context.startService(intent);
   }
 }

@@ -13,7 +13,7 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 public class Util {
 
   private static final Random random = new Random();
-  private static final HashMap<String, Typeface> typefaces = new HashMap<>();
+  private static final HashMap<String, Typeface> typefaces = new HashMap<>(1);
 
 
   private Util() {

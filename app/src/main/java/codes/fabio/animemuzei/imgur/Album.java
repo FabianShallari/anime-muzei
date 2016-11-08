@@ -15,7 +15,7 @@ import java.util.List;
 
   abstract List<Image> images();
 
-  public static TypeAdapter<Album> typeAdapter(Gson gson) {
+  @SuppressWarnings("WeakerAccess") public static TypeAdapter<Album> typeAdapter(Gson gson) {
     return new AutoValue_Album.GsonTypeAdapter(gson);
   }
 }

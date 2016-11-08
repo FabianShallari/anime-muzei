@@ -4,9 +4,6 @@ import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 
-/**
- * Created by fabian on 11/4/16.
- */
 
 @AutoValue abstract class ImgurResponse {
 
@@ -16,6 +13,7 @@ import com.google.gson.TypeAdapter;
 
   abstract int status();
 
+  @SuppressWarnings("WeakerAccess")
   public static TypeAdapter<ImgurResponse> typeAdapter(Gson gson) {
     return new AutoValue_ImgurResponse.GsonTypeAdapter(gson);
   }
