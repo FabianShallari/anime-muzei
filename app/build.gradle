@@ -74,7 +74,11 @@ dependencies {
 
   // Utils
   //noinspection GradleDependency
-  compile "com.android.support:appcompat-v7:$supportLibs"
+  compile("com.android.support:appcompat-v7:$supportLibs", {
+    exclude group: 'com.android.support', module: 'animated-vector-drawable'
+    exclude group: 'com.android.support', module: 'support-animated-vector-drawable'
+  })
+
   compile "com.google.android.apps.muzei:muzei-api:$muzeiApi"
   compile "com.jakewharton.timber:timber:$timber"
   releaseCompile("com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion") {
