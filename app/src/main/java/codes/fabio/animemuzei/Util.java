@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Random;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static java.lang.System.currentTimeMillis;
 
 public class Util {
 
   private static final Random random = new Random();
   private static final HashMap<String, Typeface> typefaces = new HashMap<>(1);
-
 
   private Util() {
     //no instance
@@ -29,7 +29,7 @@ public class Util {
   }
 
   public static <T> T randomFromList(List<T> list) {
-    random.setSeed(System.currentTimeMillis());
+    random.setSeed(currentTimeMillis());
     return list.get(random.nextInt(list.size()));
   }
 
@@ -41,8 +41,10 @@ public class Util {
     Intent shareImageIntent = new Intent(Intent.ACTION_SEND);
     shareImageIntent.putExtra(Intent.EXTRA_TEXT, message);
     shareImageIntent.setType("text/plain");
-    return Intent.createChooser(shareImageIntent, "Share Image Via")
-        .addFlags(FLAG_ACTIVITY_NEW_TASK);
+
+    Intent chooser = Intent.createChooser(shareImageIntent, "Share Image Via");
+    chooser.addFlags(FLAG_ACTIVITY_NEW_TASK);
+    return chooser;
   }
 
 
