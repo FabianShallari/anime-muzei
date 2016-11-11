@@ -87,6 +87,8 @@ dependencies {
   })
   testCompile "junit:junit:$jUnit"
   testCompile "org.mockito:mockito-core:$mockito"
+  testCompile "org.robolectric:robolectric:3.1.4"
+
 
   // Utils
   //noinspection GradleDependency

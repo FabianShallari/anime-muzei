@@ -3,11 +3,12 @@ package codes.fabio.animemuzei;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.support.test.runner.AndroidJUnit4;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import static android.content.Intent.ACTION_CHOOSER;
 import static android.content.Intent.ACTION_SEND;
@@ -15,14 +16,15 @@ import static android.content.Intent.ACTION_VIEW;
 import static android.content.Intent.EXTRA_INTENT;
 import static android.content.Intent.EXTRA_TEXT;
 import static android.content.Intent.EXTRA_TITLE;
-import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.sameInstance;
+import static org.robolectric.RuntimeEnvironment.application;
 
-@RunWith(AndroidJUnit4.class) public class UtilTest {
+@RunWith(RobolectricTestRunner.class) @Config(constants = BuildConfig.class, sdk = 23)
+public class UtilTest {
 
   private static final String MOCK_LINK = "https://www.imgur.com/fakepic";
   private static final String MOCK_MESSAGE = "Mock Message";
@@ -31,18 +33,18 @@ import static org.hamcrest.Matchers.sameInstance;
 
   @Test public void getTypeface_whenValidTypeFaceParameterIsPassed_returnsValidTypefaceObject()
       throws Exception {
-    Typeface typeface = Util.getTypeFace(getTargetContext(), ALEGREYA_BLACK_ITALIC);
+    Typeface typeface = Util.getTypeFace(application, ALEGREYA_BLACK_ITALIC);
     assertThat(typeface, is(notNullValue()));
   }
 
   @Test(expected = RuntimeException.class)
   public void getTypeFace_whenInvalidTypefaceParameterIsPassed_throwsException() {
-    Util.getTypeFace(getTargetContext(), "Invalid_TypeFace");
+    Util.getTypeFace(application, "Invalid_TypeFace");
   }
 
   @Test public void getTypeFace_whenCalledTwice_shouldReturnCachedTypeFace() {
-    Typeface typeface = Util.getTypeFace(getTargetContext(), ALEGREYA_BLACK_ITALIC);
-    Typeface cachedTypeFace = Util.getTypeFace(getTargetContext(), ALEGREYA_BLACK_ITALIC);
+    Typeface typeface = Util.getTypeFace(application, ALEGREYA_BLACK_ITALIC);
+    Typeface cachedTypeFace = Util.getTypeFace(application, ALEGREYA_BLACK_ITALIC);
     assertThat(typeface, is(sameInstance(cachedTypeFace)));
   }
 
