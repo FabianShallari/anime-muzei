@@ -10,8 +10,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import codes.fabio.animemuzei.AppSettings;
 import codes.fabio.animemuzei.R;
-import codes.fabio.animemuzei.SharedPrefsHelper;
 import javax.inject.Inject;
 import timber.log.Timber;
 
@@ -23,7 +23,7 @@ import static codes.fabio.animemuzei.remoteservice.RemoteSourceService.startActi
 public class SettingsActivity extends AppCompatActivity {
 
   @Inject UpdateIntervalSpinnerAdapter updateIntervalSpinnerAdapter;
-  @Inject SharedPrefsHelper sharedPrefsHelper;
+  @Inject AppSettings appSettings;
 
   TextView animeMuzeiTextView;
   TextView madeWithLoveTextView;
@@ -47,11 +47,11 @@ public class SettingsActivity extends AppCompatActivity {
     // set Made with love text with ImageSpan
     setMadeWithLoveText();
 
-    nsfwCheckBox.setChecked(sharedPrefsHelper.isNsfwEnabled());
+    nsfwCheckBox.setChecked(appSettings.isNsfwEnabled());
     nsfwCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         Timber.d("onCheckedChanged: %s", isChecked);
-        sharedPrefsHelper.setNsfwEnabled(isChecked);
+        appSettings.setNsfwEnabled(isChecked);
       }
     });
 
@@ -59,16 +59,16 @@ public class SettingsActivity extends AppCompatActivity {
     updateIntervalSpinner.setAdapter(updateIntervalSpinnerAdapter);
 
     // set default selection on spinner's adapter based on shared preferences
-    setUpdateIntervalSelection(sharedPrefsHelper.getUpdateIntervalMillis());
+    setUpdateIntervalSelection(appSettings.getUpdateIntervalMillis());
 
     // set spinner's listener to update shared preferences
     updateIntervalSpinner.setOnItemSelectedListener(new OnItemSelectedAdapter() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         UpdateInterval updateInterval = ((UpdateInterval) parent.getAdapter().getItem(position));
-        if (!updateInterval.equalsMillis(sharedPrefsHelper.getUpdateIntervalMillis())) {
+        if (!updateInterval.equalsMillis(appSettings.getUpdateIntervalMillis())) {
           // If update interval has changed, reschedule
-          sharedPrefsHelper.setUpdateIntervalMillis(updateInterval.toMillis());
+          appSettings.setUpdateIntervalMillis(updateInterval.toMillis());
           startActionRescheduleOnly(SettingsActivity.this);
         }
       }

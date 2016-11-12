@@ -2,8 +2,8 @@ package codes.fabio.animemuzei.remoteservice;
 
 import android.content.Context;
 import android.content.Intent;
+import codes.fabio.animemuzei.AppSettings;
 import codes.fabio.animemuzei.R;
-import codes.fabio.animemuzei.SharedPrefsHelper;
 import codes.fabio.animemuzei.imgur.ImgurImageRemoteDataSource;
 import com.google.android.apps.muzei.api.Artwork;
 import com.google.android.apps.muzei.api.RemoteMuzeiArtSource;
@@ -27,7 +27,7 @@ public class RemoteSourceService extends RemoteMuzeiArtSource {
 
   @Inject ImgurImageRemoteDataSource imgurImageRemoteDataSource;
   @Inject List<UserCommand> userCommands;
-  @Inject SharedPrefsHelper sharedPrefsHelper;
+  @Inject AppSettings appSettings;
 
   public RemoteSourceService() {
     super(SOURCE_NAME);
@@ -60,9 +60,9 @@ public class RemoteSourceService extends RemoteMuzeiArtSource {
 
   private void rescheduleOnly() {
     Timber.d("rescheduleOnly: updateTimeInMinutes: %s",
-        String.valueOf(MILLISECONDS.toMinutes(sharedPrefsHelper.getUpdateIntervalMillis())));
+        String.valueOf(MILLISECONDS.toMinutes(appSettings.getUpdateIntervalMillis())));
 
-    scheduleUpdate(currentTimeMillis() + sharedPrefsHelper.getUpdateIntervalMillis());
+    scheduleUpdate(currentTimeMillis() + appSettings.getUpdateIntervalMillis());
   }
 
   @Override protected void onTryUpdate(int reason) throws RetryException {
@@ -75,11 +75,11 @@ public class RemoteSourceService extends RemoteMuzeiArtSource {
       throw new RetryException();
     }
 
-    Timber.d("onTryUpdate: nsfw: %s", sharedPrefsHelper.isNsfwEnabled());
+    Timber.d("onTryUpdate: nsfw: %s", appSettings.isNsfwEnabled());
     Timber.d("onTryUpdate: updateTimeInMinutes: %s",
-        String.valueOf(MILLISECONDS.toMinutes(sharedPrefsHelper.getUpdateIntervalMillis())));
+        String.valueOf(MILLISECONDS.toMinutes(appSettings.getUpdateIntervalMillis())));
 
-    scheduleUpdate(currentTimeMillis() + sharedPrefsHelper.getUpdateIntervalMillis());
+    scheduleUpdate(currentTimeMillis() + appSettings.getUpdateIntervalMillis());
   }
 
   @Override protected void onCustomCommand(int id) {
