@@ -7,8 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import static android.content.Intent.ACTION_CHOOSER;
 import static android.content.Intent.ACTION_SEND;
@@ -23,7 +21,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.robolectric.RuntimeEnvironment.application;
 
-@RunWith(RobolectricTestRunner.class) @Config(constants = BuildConfig.class, sdk = 23)
+@RunWith(AnimeMuzeiRoboelectricTestRunner.class)
 public class UtilTest {
 
   private static final String MOCK_LINK = "https://www.imgur.com/fakepic";
