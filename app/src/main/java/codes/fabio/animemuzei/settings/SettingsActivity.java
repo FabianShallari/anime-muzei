@@ -13,12 +13,11 @@ import android.widget.TextView;
 import codes.fabio.animemuzei.AppSettings;
 import codes.fabio.animemuzei.R;
 import javax.inject.Inject;
-import timber.log.Timber;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_EXCLUSIVE;
 import static codes.fabio.animemuzei.AnimeMuzeiApplication.getApplicationComponent;
 import static codes.fabio.animemuzei.Util.getTypeFace;
-import static codes.fabio.animemuzei.remoteservice.RemoteSourceService.startActionRescheduleOnly;
+import static codes.fabio.animemuzei.remoteservice.AnimeMuzeiRemoteSourceService.startActionRescheduleOnly;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -50,7 +49,6 @@ public class SettingsActivity extends AppCompatActivity {
     nsfwCheckBox.setChecked(appSettings.isNsfwEnabled());
     nsfwCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        Timber.d("onCheckedChanged: %s", isChecked);
         appSettings.setNsfwEnabled(isChecked);
       }
     });
