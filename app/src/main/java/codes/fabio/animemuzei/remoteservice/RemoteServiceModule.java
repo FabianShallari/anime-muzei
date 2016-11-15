@@ -8,7 +8,7 @@ import dagger.Provides;
 import java.util.List;
 import javax.inject.Singleton;
 
-import static codes.fabio.animemuzei.remoteservice.RemoteSourceService.CUSTOM_COMMAND_ID_SHARE_ARTWORK;
+import static codes.fabio.animemuzei.remoteservice.AnimeMuzeiRemoteSourceService.CUSTOM_COMMAND_ID_SHARE_ARTWORK;
 import static com.google.android.apps.muzei.api.MuzeiArtSource.BUILTIN_COMMAND_ID_NEXT_ARTWORK;
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;

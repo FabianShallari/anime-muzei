@@ -1,7 +1,7 @@
 package codes.fabio.animemuzei.imgur;
 
 import android.net.Uri;
-import codes.fabio.animemuzei.SharedPrefsHelper;
+import codes.fabio.animemuzei.AppSettings;
 import com.google.android.apps.muzei.api.Artwork;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +22,15 @@ import static rx.Observable.just;
   @SuppressWarnings("WeakerAccess") final ImgurApi imgurApi;
   private final List<String> sfwAlbumIds;
   private final List<String> nsfwAlbumIds;
-  @SuppressWarnings("WeakerAccess") final SharedPrefsHelper sharedPrefsHelper;
+  @SuppressWarnings("WeakerAccess") final AppSettings appSettings;
 
   @Inject ImgurImageRemoteDataSource(ImgurApi imgurApi, @Sfw List<String> sfwAlbumIds,
-      @Nsfw List<String> nsfwAlbumIds, SharedPrefsHelper sharedPrefsHelper) {
+      @Nsfw List<String> nsfwAlbumIds, AppSettings appSettings) {
 
     this.imgurApi = imgurApi;
     this.sfwAlbumIds = sfwAlbumIds;
     this.nsfwAlbumIds = nsfwAlbumIds;
-    this.sharedPrefsHelper = sharedPrefsHelper;
+    this.appSettings = appSettings;
   }
 
   public Observable<Artwork> nextImage() {
@@ -38,8 +38,8 @@ import static rx.Observable.just;
         new Func2<List<String>, List<String>, List<String>>() {
           @Override public List<String> call(List<String> sfwAlbumIds, List<String> nsfwAlbumIds) {
             List<String> albumIds = new ArrayList<>(sfwAlbumIds);
-            Timber.d("nsfwEnabled: %s", sharedPrefsHelper.isNsfwEnabled());
-            if (sharedPrefsHelper.isNsfwEnabled()) {
+            Timber.d("nsfwEnabled: %s", appSettings.isNsfwEnabled());
+            if (appSettings.isNsfwEnabled()) {
               albumIds.addAll(nsfwAlbumIds);
             }
             return unmodifiableList(albumIds);

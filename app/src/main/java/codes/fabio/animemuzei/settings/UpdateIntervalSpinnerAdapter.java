@@ -11,9 +11,12 @@ import javax.inject.Singleton;
 
 @Singleton class UpdateIntervalSpinnerAdapter extends BaseAdapter {
 
+  private final LayoutInflater layoutInflater;
   private final List<UpdateInterval> updateIntervals;
 
-  @Inject UpdateIntervalSpinnerAdapter(List<UpdateInterval> updateIntervals) {
+  @Inject UpdateIntervalSpinnerAdapter(LayoutInflater layoutInflater,
+      List<UpdateInterval> updateIntervals) {
+    this.layoutInflater = layoutInflater;
     this.updateIntervals = updateIntervals;
   }
 
@@ -31,16 +34,14 @@ import javax.inject.Singleton;
 
   @Override public View getView(int position, View convertView, ViewGroup parent) {
 
+    UpdateIntervalViewHolder viewHolder;
+
     if (convertView == null) {
-      convertView = LayoutInflater.from(parent.getContext())
-          .inflate(R.layout.update_interval_view, parent, false);
-    }
-
-    UpdateIntervalViewHolder viewHolder = ((UpdateIntervalViewHolder) convertView.getTag());
-
-    if (viewHolder == null) {
+      convertView = layoutInflater.inflate(R.layout.update_interval_view, parent, false);
       viewHolder = new UpdateIntervalViewHolder(convertView);
       convertView.setTag(viewHolder);
+    } else {
+      viewHolder = ((UpdateIntervalViewHolder) convertView.getTag());
     }
 
     viewHolder.bind(((UpdateInterval) getItem(position)));

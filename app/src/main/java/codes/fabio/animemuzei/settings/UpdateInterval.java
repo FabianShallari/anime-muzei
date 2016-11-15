@@ -1,5 +1,6 @@
 package codes.fabio.animemuzei.settings;
 
+import android.content.Context;
 import android.support.annotation.PluralsRes;
 import codes.fabio.animemuzei.R;
 import com.google.auto.value.AutoValue;
@@ -32,7 +33,7 @@ import static java.util.concurrent.TimeUnit.MINUTES;
     return millis == timeUnit().toMillis(amount());
   }
 
-  @PluralsRes int quantityStringRes() {
+  @PluralsRes private int quantityStringRes() {
     if (!timeUnitQuantityStrings.containsKey(timeUnit())) {
       throw new IllegalArgumentException("No Plurals declared for TimeUnit: " + timeUnit());
     }
@@ -41,5 +42,9 @@ import static java.util.concurrent.TimeUnit.MINUTES;
 
   long toMillis() {
     return timeUnit().toMillis(amount());
+  }
+
+  String format(Context context) {
+    return context.getResources().getQuantityString(quantityStringRes(), amount(), amount());
   }
 }

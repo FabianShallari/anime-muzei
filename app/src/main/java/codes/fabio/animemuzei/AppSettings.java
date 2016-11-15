@@ -6,14 +6,14 @@ import javax.inject.Singleton;
 
 import static java.util.concurrent.TimeUnit.DAYS;
 
-@Singleton public class SharedPrefsHelper {
+@Singleton public class AppSettings {
 
   private static final String PREF_NSFW_ENABLED = "nsfw_enabled";
   private static final String PREF_UPDATE_INTERVAL_MILLIS = "update_interval_millis";
 
   private final SharedPreferences sharedPreferences;
 
-  @Inject SharedPrefsHelper(SharedPreferences sharedPreferences) {
+  @Inject AppSettings(SharedPreferences sharedPreferences) {
     this.sharedPreferences = sharedPreferences;
   }
 

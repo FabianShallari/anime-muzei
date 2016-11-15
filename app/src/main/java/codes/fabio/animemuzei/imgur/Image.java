@@ -14,6 +14,12 @@ import com.google.gson.TypeAdapter;
 
   abstract String link();
 
+  static Image create(String id, @Nullable String title, @Nullable String description,
+      String link) {
+
+    return new AutoValue_Image(id, title, description, link);
+  }
+
   @SuppressWarnings("WeakerAccess") public static TypeAdapter<Image> typeAdapter(Gson gson) {
     return new AutoValue_Image.GsonTypeAdapter(gson);
   }
