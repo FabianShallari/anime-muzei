@@ -81,11 +81,10 @@ import static org.mockito.Mockito.when;
 
     try {
       imgurImageRemoteDataSource.nextImage().toBlocking().first();
+      fail();
     } catch (Exception e) {
       assertThat(e.getCause(), is(instanceOf(IOException.class)));
     }
-
-    fail();
   }
 
   @SuppressWarnings("WeakerAccess") ImgurResponse mockImgurResponseWithSingleImage(Image image) {
