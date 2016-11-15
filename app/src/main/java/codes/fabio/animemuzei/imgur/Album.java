@@ -15,6 +15,11 @@ import java.util.List;
 
   abstract List<Image> images();
 
+  static Album create(String id, @Nullable String title, @Nullable String description,
+      List<Image> images) {
+    return new AutoValue_Album(id, title, description, images);
+  }
+
   @SuppressWarnings("WeakerAccess") public static TypeAdapter<Album> typeAdapter(Gson gson) {
     return new AutoValue_Album.GsonTypeAdapter(gson);
   }
