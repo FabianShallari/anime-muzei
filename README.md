@@ -6,7 +6,7 @@ which serves wallpapers from anime and manga series.
 
 Download
 ========
-Coming soon...
+[<img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" width="300"></img>](https://play.google.com/store/apps/details?id=codes.fabio.animemuzei)
 
 Build
 =====
