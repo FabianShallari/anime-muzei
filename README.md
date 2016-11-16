@@ -1,9 +1,24 @@
-Todo
-=======
+Anime Muzei
+===========
 
-- [ ] Explain App
-- [ ] Add link to Play Store after release
-- [ ] Add instructions to build (getting imgurapi etc)
+An open source plugin for Roman Nurik's [Muzei Live Wallpaper](https://play.google.com/store/apps/details?id=net.nurik.roman.muzei&hl=en)
+which serves wallpapers from anime and manga series.
+
+Download
+========
+Coming soon...
+
+Build
+=====
+In order to build you need to generate an Imgur Api key [here](https://api.imgur.com/oauth2/addclient).
+
+Steps:
+
+1. Application Name: `anime-muzei`
+2. Choose: `OAuth 2 authorization without a callback URL`
+3. Fill in `email` and `description`
+4. ✓ I'm not a robot
+5. Open `app/gradle.properties` and put in `imgurPublicKey=YOUR_GENERATED_API_KEY`
 
 
 License
