@@ -18,7 +18,7 @@ Steps:
 2. Choose: `OAuth 2 authorization without a callback URL`
 3. Fill in `email` and `description`
 4. ✓ I'm not a robot
-5. Open `app/gradle.properties` and put in `imgurPublicKey=YOUR_GENERATED_API_KEY`
+5. Create `app/gradle.properties` and put in `imgurPublicKey=YOUR_GENERATED_API_KEY`
 
 
 License
